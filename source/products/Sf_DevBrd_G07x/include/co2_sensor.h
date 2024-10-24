@@ -17,7 +17,9 @@ extern "C" {
 #define FUN_CODE_READ_COIL 0x44
   
 #define INIT_PERIOD  50 //Init Period, this parameter is used to control sending period of the init command, 100 ms
-#define LOOP_PERIOD  2000 //Loop Period, 1000 ms
+#define LOOP_PERIOD  2000 //Loop Period, LOOP_PERIOD ms
+#define UPDATE_PERIOD  60 //update Period, UPDATE_PERIOD x LOOP_PERIOD ms
+#define THRESHOLD  15 //update Period, UPDATE_PERIOD x LOOP_PERIOD ms
   
 #define COMMAND_LEN 20
 

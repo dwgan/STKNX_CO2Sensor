@@ -70,7 +70,7 @@
                 </option>
                 <option>
                     <name>OGLastSavedByProductVersion</name>
-                    <state>9.50.2.71646</state>
+                    <state>9.40.1.63870</state>
                 </option>
                 <option>
                     <name>OGChipSelectEditMenu</name>
@@ -2289,7 +2289,7 @@
             <name>$PROJ_DIR$\..\..\source\interface\communication\Knx_protocol_0705_2K_BitChip_Lib\source\KnxProp_0705.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\lib\stm32g070cbt6_st_lib_Rx_Pa9 Iar 8.40.2 V 1.04 .a</name>
+            <name>$PROJ_DIR$\..\..\lib\stm32g070cbt6_st_lib_Rx_Pa9_CoTmLimit 20220409 Iar 8.40.2 V 1.04.a</name>
         </file>
     </group>
 </project>

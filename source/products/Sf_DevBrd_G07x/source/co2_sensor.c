@@ -11,7 +11,7 @@
 #include "main.h" 
 
 co2_sensor_knx_bus_t co2_sensor_knx_bus;
-
+BYTE co2_valueflag = 0;
 static uint16_t crc_table[256] =
 {
     0x0000, 0xc0c1, 0xc181, 0x0140, 0xc301, 0x03c0, 0x0280, 0xc241,
@@ -123,6 +123,27 @@ static void co2_value_request()
     USART_SendStringData(temp_send[0], CMD_LEN);
 }
 
+static void co2_value_update()
+{
+    static WORD16 co2_last=0;
+    static BYTE times = 0;
+    if(co2_valueflag== 1)
+    {
+        if (abs(co2_sensor_knx_bus.co2_value - co2_last) > THRESHOLD)
+        {
+            co2_sensor_knx_bus.co2_valueflag = 1;
+            co2_last = co2_sensor_knx_bus.co2_value;
+            times = 0;
+        }
+        co2_valueflag = 0;
+    }
+    if (times ++ > UPDATE_PERIOD)
+    {
+        co2_sensor_knx_bus.co2_valueflag = 1;
+        times = 0;
+    }
+}
+
 static void TaskRun()
 {
     co2_value_request();
@@ -195,7 +216,7 @@ static void EventProcess()
         if ( ( crc & 0xff ) == *( temp_rcv[0] + * ( temp_rcv[0] + 2 ) + 3 ) && ( crc >> 8 & 0xff ) == *( temp_rcv[0] + * ( temp_rcv[0] + 2 ) + 4 ) )
         {
             co2_sensor_knx_bus.co2_value = (((WORD16)*(temp_rcv[0]+3) << 8) & 0xff00) | ((WORD16)*(temp_rcv[0]+4) & 0xff);
-            co2_sensor_knx_bus.co2_valueflag = 1;
+            co2_valueflag = 1;
         }
         seneair_rcv_done = 0;
         memset( temp_rcv[0], 0, sizeof( temp_rcv[0] ) );
@@ -230,6 +251,7 @@ void co2_sensor_Loop()
 
             TaskRun();
             EventProcess();
+            co2_value_update();
         }
     }    
 }
