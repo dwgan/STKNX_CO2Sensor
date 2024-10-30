@@ -10,7 +10,16 @@
 #include "co2_sensor.h"
 #include "main.h" 
 
-co2_sensor_knx_bus_t co2_sensor_knx_bus;
+co2_sensor_knx_bus_t co2_sensor_knx_bus={
+    .co2_value=500,
+    .co2_valueflag=1,
+    .temperature=0,
+    .temperatureflag=0,
+    .co2_alarm_status=0,
+    .co2_alarm_statusflag=0,
+    .co2_alarm_trig_value=1200,
+    .co2_alarm_trig_valueflag=0
+};
 BYTE co2_valueflag = 0;
 static uint16_t crc_table[256] =
 {
@@ -142,6 +151,15 @@ static void co2_value_update()
         co2_sensor_knx_bus.co2_valueflag = 1;
         times = 0;
     }
+    if (co2_sensor_knx_bus.co2_value > co2_sensor_knx_bus.co2_alarm_trig_value && co2_sensor_knx_bus.co2_alarm_status == 0)
+    {
+        co2_sensor_knx_bus.co2_alarm_status = 1;
+        co2_sensor_knx_bus.co2_alarm_statusflag = 1;
+    }
+    else if (co2_sensor_knx_bus.co2_value <= co2_sensor_knx_bus.co2_alarm_trig_value)
+    {
+        co2_sensor_knx_bus.co2_alarm_status = 0;
+    }
 }
 
 static void TaskRun()
@@ -253,5 +271,5 @@ void co2_sensor_Loop()
             EventProcess();
             co2_value_update();
         }
-    }    
+    }
 }

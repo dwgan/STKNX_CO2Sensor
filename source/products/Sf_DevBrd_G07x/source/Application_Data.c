@@ -39,7 +39,9 @@ __root const T_COMOBJ_TABLE g_tComObjTable = \
     {HI_BYTE(RAM_FLAGS_REF),LOW_BYTE(RAM_FLAGS_REF)},
     {
         /* co2 communication object parameter. */
-        {HI_BYTE(VALUE_REF_CO0),LOW_BYTE(VALUE_REF_CO0),COM_ALL|PRIO_LOW,TYPE_UINT16     }, //CO2 VALUE
+        {HI_BYTE(VALUE_REF_CO0),LOW_BYTE(VALUE_REF_CO0),COM_ALL|PRIO_LOW,TYPE_UINT16    }, //CO2 VALUE
+        {HI_BYTE(VALUE_REF_CO1),LOW_BYTE(VALUE_REF_CO1),COM_ALL|PRIO_LOW,TYPE_UINT16    }, //CO2 alarm trigger VALUE
+        {HI_BYTE(VALUE_REF_CO2),LOW_BYTE(VALUE_REF_CO2),COM_ALL|PRIO_LOW,TYPE_UINT8     }, //CO2 alarm status
     }
 };
 /************* Application configure parameter area *******************************/

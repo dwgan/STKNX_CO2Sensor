@@ -29,6 +29,10 @@ typedef struct
     BYTE co2_valueflag;
     float temperature;
     BYTE temperatureflag;
+    BYTE co2_alarm_status;
+    BYTE co2_alarm_statusflag;
+    WORD16 co2_alarm_trig_value;
+    BYTE co2_alarm_trig_valueflag;
 } co2_sensor_knx_bus_t;
 #pragma pack(1)
 typedef struct

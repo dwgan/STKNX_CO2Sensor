@@ -102,6 +102,7 @@ void DataConvert_FloatToInt(BYTE *pData);
 void DataConvert_IntToFloat(BYTE *pData);
 void swapEndian(void* data, size_t size);
 void DataConvert_Int32ToFloat( BYTE *pData );
+void DataConvert_FloatToInt32( BYTE *pData );
 u32_t GetSystemTime_ms(void);
 
 #ifdef __cplusplus

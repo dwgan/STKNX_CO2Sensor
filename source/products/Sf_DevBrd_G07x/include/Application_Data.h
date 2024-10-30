@@ -58,7 +58,7 @@ extern "C" {
 *********************************************************/
 #define MAX_ADDR_COUNT                    254        /* the max. group address count. < 255 */
 #define MAX_ASSOC_COUNT                   254        /* the max. association count.  < 255  */
-#define COMM_OBJECT_COUNT                 1         /* communication object count. < 255   */
+#define COMM_OBJECT_COUNT                 3         /* communication object count. < 255   */
 #define COMM_OBJECT_MAX_COUNT             255        /* max. communication object count.    */
 #define USER_OBJECT_COUNT                 1          /* EIB user's object count.            */
 #define PROP_COUNT_OF_INTOB15             2          /* the number of properties of the object15. */
@@ -154,7 +154,9 @@ extern "C" {
 
 /* define memory for communcation object value. */
 #define VALUE_REF_CO0                     (APP_RAM_BEGIN+0)                  /* Data pointer for CO #0 offset 1byte */
-#define RAM_FLAGS_REF                     (APP_RAM_BEGIN+1)                 /* Start of co ram flags  */
+#define VALUE_REF_CO1                     (APP_RAM_BEGIN+2)                  /* Data pointer for CO #0 offset 1byte */
+#define VALUE_REF_CO2                     (APP_RAM_BEGIN+4)                  /* Data pointer for CO #0 offset 1byte */
+#define RAM_FLAGS_REF                     (APP_RAM_BEGIN+5)                 /* Start of co ram flags  */
 
 /* CRC check of application memory is mandory. */
 #define APP_MEM1_CRC                      (TRUE)

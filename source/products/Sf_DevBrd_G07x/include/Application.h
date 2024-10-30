@@ -34,7 +34,8 @@ extern "C" {
 
 /* input channel Co. define. */
 #define CO2_VALUE_CO                         0   /* CO2 value. */ /* 2byte */
-
+#define CO2_ALARM_TRIG_VALUE_CO                  1   /* Setting co2 vale for tirgger alarm status */
+#define CO2_ALARM_STATUS_CO                      2   /* CO2 alarm status*/
 
 
 /*-------------------------Declaration of functions---------------------------*/

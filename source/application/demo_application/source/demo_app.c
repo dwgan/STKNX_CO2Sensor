@@ -146,6 +146,26 @@ void Demo_App_Run(void)
 
         co2_sensor_knx_bus.co2_valueflag= 0;
     }
+    
+    if(co2_sensor_knx_bus.co2_alarm_statusflag== 1)
+    {
+        API_KnxAl_SetCoValue(CO2_ALARM_STATUS_CO,&co2_sensor_knx_bus.co2_alarm_status);
+              /* send the switch co-obj's data. */
+        API_KnxAl_RequestValueWrite(CO2_ALARM_STATUS_CO); 
+
+        co2_sensor_knx_bus.co2_alarm_statusflag= 0;
+    }
+    
+    BYTE ucData = API_KnxAl_GetRamFlags(CO2_ALARM_TRIG_VALUE_CO);
+    /* check whether this co-obj's data was renewed. */
+    if(ucData & CO_EXTERNAL_UPDATE)
+    {
+        API_KnxAl_GetCoValue(CO2_ALARM_TRIG_VALUE_CO, (BYTE *)&sensorvalue);	
+        DataConvert_FloatToInt32(sensorvalue);
+        
+        co2_sensor_knx_bus.co2_alarm_trig_value = *(WORD32*)sensorvalue / 100;
+//        co2_sensor_knx_bus.co2_alarm_trig_valueflag = 1;
+    }
     co2_sensor_Loop();
 }
 
@@ -211,6 +231,26 @@ void DataConvert_Int32ToFloat( BYTE *pData )
     }
     pData[1] = ( BYTE )( converrvalue & 0xff );
     pData[0] = ( BYTE )( ( ( converrvalue >> 8 ) & 0xff ) | ( indexnumer << 3 ) );
+}
+
+void DataConvert_FloatToInt32( BYTE *pData )
+{
+    WORD32 result;
+    BYTE indexnumer;
+
+    indexnumer = ( pData[0] >> 3 ) & 0x1F;  // 获取指数部分
+    result = ( (WORD32)( pData[0] & 0x07 ) << 8 ) + pData[1];  // 取出尾数
+
+    // 恢复原始数值
+    while( indexnumer-- )
+    {
+        result = result * 2;
+    }
+
+    pData[3] = (BYTE)( ( result >> 24 ) & 0xFF );
+    pData[2] = (BYTE)( ( result >> 16 ) & 0xFF );
+    pData[1] = (BYTE)( ( result >> 8 ) & 0xFF );
+    pData[0] = (BYTE)( result & 0xFF );
 }
 
 /**

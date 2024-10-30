@@ -695,7 +695,7 @@
             <data>
                 <extensions></extensions>
                 <cmdline></cmdline>
-                <hasPrio>1</hasPrio>
+                <hasPrio>64</hasPrio>
                 <buildSequence>inputOutputBased</buildSequence>
             </data>
         </settings>
@@ -780,7 +780,7 @@
                 </option>
                 <option>
                     <name>IlinkIcfFile</name>
-                    <state>D:\KNX\KNX_Demo\CO2Sensor\STKNX_CO2Sensor\source\products\Sf_DevBrd_G07x\source\Cpu_resource_cfg.icf</state>
+                    <state>$PROJ_DIR$\..\..\source\products\Sf_DevBrd_G07x\source\Cpu_resource_cfg.icf</state>
                 </option>
                 <option>
                     <name>IlinkIcfFileSlave</name>
